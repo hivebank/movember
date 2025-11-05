@@ -1,0 +1,36 @@
+# Dependencies
+/backend/vendor/
+/frontend/node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+/tmp/
+/logs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build output
+/frontend/dist/
+/frontend/dist-ssr/
+
+# Cache
+.cache/
+*.cache
+
+# Temporary files
+/backend/storage/
+/backend/bootstrap/cache/
