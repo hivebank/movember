@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# Redirect to backend API
+RewriteRule ^backend/(.*)$ backend/public/$1 [L]
+
+# If the file or directory exists, serve it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Otherwise, route to PHP files
+RewriteRule ^(.*)$ $1.php [L,QSA]
