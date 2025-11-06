@@ -2,7 +2,7 @@
 session_start();
 
 // API Base URL
-define('API_URL', '/backend/public/api');
+define('API_URL', 'backend/public/api');
 
 // Helper function to make API calls
 function apiCall($endpoint, $method = 'GET', $data = null) {
