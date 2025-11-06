@@ -12,16 +12,16 @@
     <header class="header">
         <div class="container">
             <nav class="nav">
-                <a href="/" class="logo">FormFlow</a>
+                <a href="index.php" class="logo">FormFlow</a>
                 <ul class="nav-links">
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <li><a href="/dashboard.php">Dashboard</a></li>
-                        <li><a href="/pricing.php">Pricing</a></li>
-                        <li><a href="/logout.php">Logout</a></li>
+                        <li><a href="dashboard.php">Dashboard</a></li>
+                        <li><a href="pricing.php">Pricing</a></li>
+                        <li><a href="logout.php">Logout</a></li>
                     <?php else: ?>
-                        <li><a href="/pricing.php">Pricing</a></li>
-                        <li><a href="/login.php">Login</a></li>
-                        <li><a href="/register.php" class="btn btn-primary">Get Started</a></li>
+                        <li><a href="pricing.php">Pricing</a></li>
+                        <li><a href="login.php">Login</a></li>
+                        <li><a href="register.php" class="btn btn-primary">Get Started</a></li>
                     <?php endif; ?>
                 </ul>
             </nav>

@@ -3,7 +3,7 @@ require_once 'includes/config.php';
 
 // If already logged in, redirect to dashboard
 if (isLoggedIn()) {
-    header('Location: /dashboard.php');
+    header('Location: dashboard.php');
     exit;
 }
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['token'] = $result['data']['token'];
         $_SESSION['user'] = $result['data']['user'];
 
-        header('Location: /dashboard.php');
+        header('Location: dashboard.php');
         exit;
     } else {
         $error = $result['data']['message'] ?? 'Login failed. Please try again.';
@@ -39,7 +39,7 @@ include 'includes/header.php';
         <div style="text-align: center; margin-bottom: 2rem;">
             <h1>Sign in to your account</h1>
             <p style="margin-top: 0.5rem; color: #6b7280;">
-                Or <a href="/register.php" style="color: #0ea5e9;">create a new account</a>
+                Or <a href="register.php" style="color: #0ea5e9;">create a new account</a>
             </p>
         </div>
 
