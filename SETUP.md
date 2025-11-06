@@ -6,24 +6,32 @@ This is a **zero-setup, plug-and-play PHP application** with modern UI. No .env 
 
 ---
 
-## 🚀 Setup on Your Server
+## 🚀 One-Command Setup
 
-### Step 1: Clone the Repo
+### The Easy Way (Recommended)
 
 ```bash
+# Clone the repo
 git clone https://github.com/hivebank/movember.git
 cd movember
+
+# Run the automatic setup script
+./setup.sh
 ```
 
-### Step 1.5: Verify Your Setup (Optional but Recommended)
+**Done!** The script automatically:
+- ✅ Installs backend dependencies
+- ✅ Creates MongoDB database
+- ✅ Creates admin user (admin@admin.com / admin)
 
-After completing the setup steps below, visit `http://yourdomain.com/setup-check.php` to automatically verify your installation. This page will check all requirements and guide you through fixing any issues.
+No .env file needed. Works out of the box! 🎉
 
-```
-http://yourdomain.com/setup-check.php
-```
+---
 
-⚠️ **Delete this file after setup is complete for security!**
+### Manual Setup (If You Prefer)
+
+<details>
+<summary>Click to expand manual steps</summary>
 
 ### Step 2: Install Backend Dependencies
 
@@ -50,11 +58,15 @@ mongosh < setup-mongodb.js
 mongosh formflow < create-admin-user.js
 ```
 
-This creates:
+Admin credentials:
 - **Email**: `admin@admin.com`
 - **Password**: `admin`
 
-### Step 5: Configure Apache
+</details>
+
+---
+
+## 🔧 Configure Apache
 
 Point your Apache DocumentRoot to the movember folder:
 
@@ -76,7 +88,13 @@ Restart Apache:
 sudo systemctl restart apache2
 ```
 
-### Step 6: Visit Your Site!
+### Verify Setup
+
+Visit `http://yourdomain.com/setup-check.php` to automatically verify your installation.
+
+⚠️ **Delete setup-check.php after setup is complete for security!**
+
+### Visit Your Site!
 
 Go to `http://yourdomain.com` and login with:
 - **Email**: `admin@admin.com`

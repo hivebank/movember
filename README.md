@@ -65,30 +65,25 @@ A complete, production-ready SaaS solution for creating beautiful step-by-step f
 - Apache 2.4+ (with mod_rewrite enabled)
 - **NO Node.js required!** 🎉
 
-### Setup (3 minutes!)
+### One-Command Setup!
 
 ```bash
-# 1. Clone the repo
+# Clone and setup:
 git clone https://github.com/hivebank/movember.git
 cd movember
-
-# 2. Install backend dependencies (no .env needed!)
-cd backend
-composer install
-cd ..
-
-# 3. Setup MongoDB
-mongosh < setup-mongodb.js
-mongosh formflow < create-admin-user.js
-
-# 4. Point Apache to the movember folder
-# Edit your Apache config to set DocumentRoot to /path/to/movember
-
-# 5. Visit the setup checker
-# http://yourdomain.com/setup-check.php
+./setup.sh
 ```
 
-**That's it! No .env file, no configuration required!**
+**Done!** The script automatically installs everything. Then just point Apache to the folder!
+
+**Manual setup:**
+```bash
+git clone https://github.com/hivebank/movember.git
+cd movember
+cd backend && composer install && cd ..
+mongosh < setup-mongodb.js
+mongosh formflow < create-admin-user.js
+```
 
 ### Quick Verification
 
