@@ -23,8 +23,8 @@
 .DS_Store
 Thumbs.db
 
-# Build output
-/frontend/dist/
+# Build output - dist is committed for easy deployment
+# /frontend/dist/
 /frontend/dist-ssr/
 
 # Cache
