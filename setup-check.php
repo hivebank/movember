@@ -226,25 +226,24 @@ $allPassed = true;
             }
             echo '</div>';
 
-            // Check 4: Backend Environment File
+            // Check 4: Backend Configuration File
             echo '<div class="check-item">';
-            $envExists = file_exists(__DIR__ . '/backend/.env');
-            if (!$envExists) $allPassed = false;
+            $configExists = file_exists(__DIR__ . '/backend/config/config.php');
+            if (!$configExists) $allPassed = false;
 
             echo '<div class="check-header">';
             echo '<span class="check-title">4. Backend Configuration</span>';
-            echo '<span class="badge ' . ($envExists ? 'badge-success' : 'badge-error') . '">';
-            echo $envExists ? '✓ PASS' : '✗ FAIL';
+            echo '<span class="badge ' . ($configExists ? 'badge-success' : 'badge-error') . '">';
+            echo $configExists ? '✓ PASS' : '✗ FAIL';
             echo '</span></div>';
 
-            if ($envExists) {
-                echo '<div class="check-details">Configuration file found: <code>backend/.env</code></div>';
+            if ($configExists) {
+                echo '<div class="check-details">Configuration file found: <code>backend/config/config.php</code></div>';
+                echo '<div class="check-details" style="margin-top: 8px; color: #059669;">✓ No .env file needed - works out of the box!</div>';
             } else {
                 echo '<div class="fix-steps"><strong>Fix:</strong>';
-                echo '<ol>';
-                echo '<li>Copy the example: <code>cp backend/.env.example backend/.env</code></li>';
-                echo '<li>Edit backend/.env and set your MongoDB and JWT settings</li>';
-                echo '</ol></div>';
+                echo '<p>Configuration file is missing. This should not happen with a fresh clone.</p>';
+                echo '</div>';
             }
             echo '</div>';
 
@@ -275,12 +274,11 @@ $allPassed = true;
             $mongoOk = false;
             $mongoMessage = '';
 
-            if (extension_loaded('mongodb') && $envExists) {
+            if (extension_loaded('mongodb') && $configExists) {
                 try {
                     // Try to connect to MongoDB
-                    $envContent = file_get_contents(__DIR__ . '/backend/.env');
-                    preg_match('/MONGODB_URI=(.*)/', $envContent, $matches);
-                    $mongoUri = $matches[1] ?? 'mongodb://localhost:27017';
+                    $appConfig = require __DIR__ . '/backend/config/config.php';
+                    $mongoUri = $appConfig['database']['uri'] ?? 'mongodb://localhost:27017';
 
                     $manager = new MongoDB\Driver\Manager($mongoUri);
                     $command = new MongoDB\Driver\Command(['ping' => 1]);
@@ -321,8 +319,9 @@ $allPassed = true;
 
             if ($mongoOk) {
                 try {
-                    preg_match('/MONGODB_DATABASE=(.*)/', $envContent, $matches);
-                    $dbName = trim($matches[1] ?? 'formflow');
+                    // Load config to get database name
+                    $appConfig = require __DIR__ . '/backend/config/config.php';
+                    $dbName = $appConfig['database']['database'] ?? 'formflow';
 
                     $query = new MongoDB\Driver\Query(['email' => 'admin@admin.com'], ['limit' => 1]);
                     $cursor = $manager->executeQuery($dbName . '.users', $query);

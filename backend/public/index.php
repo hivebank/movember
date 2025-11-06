@@ -1,22 +1,40 @@
 <?php
 
 use Slim\Factory\AppFactory;
-use Dotenv\Dotenv;
 use FormFlow\Middleware\CorsMiddleware;
 use FormFlow\Middleware\AuthMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-// Load environment variables
-$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
-$dotenv->safeLoad();
+// Load configuration
+$config = require __DIR__ . '/../config/config.php';
+
+// Make config globally accessible
+define('CONFIG', $config);
+
+// Helper function to get config values
+if (!function_exists('config')) {
+    function config($key, $default = null) {
+        $keys = explode('.', $key);
+        $value = CONFIG;
+
+        foreach ($keys as $k) {
+            if (!isset($value[$k])) {
+                return $default;
+            }
+            $value = $value[$k];
+        }
+
+        return $value;
+    }
+}
 
 // Create Slim app
 $app = AppFactory::create();
 
 // Add error middleware
 $app->addErrorMiddleware(
-    $_ENV['APP_DEBUG'] === 'true',
+    config('app.debug', false),
     true,
     true
 );

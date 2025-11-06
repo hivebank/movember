@@ -110,8 +110,8 @@ class SubscriptionController
         }
 
         // Create checkout session
-        $successUrl = $_ENV['APP_URL'] . '/dashboard?subscription=success';
-        $cancelUrl = $_ENV['APP_URL'] . '/pricing?subscription=cancelled';
+        $successUrl = config('app.url', 'http://localhost') . '/dashboard?subscription=success';
+        $cancelUrl = config('app.url', 'http://localhost') . '/pricing?subscription=cancelled';
 
         $session = $this->stripeService->createCheckoutSession(
             $stripeCustomerId,

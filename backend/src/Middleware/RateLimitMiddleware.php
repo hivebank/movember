@@ -15,8 +15,8 @@ class RateLimitMiddleware implements MiddlewareInterface
 
     public function __construct(?int $maxRequests = null, ?int $windowSeconds = null)
     {
-        $this->maxRequests = $maxRequests ?? (int)($_ENV['RATE_LIMIT_REQUESTS'] ?? 100);
-        $this->windowSeconds = $windowSeconds ?? (int)($_ENV['RATE_LIMIT_WINDOW'] ?? 60);
+        $this->maxRequests = $maxRequests ?? config('rate_limit.requests', 100);
+        $this->windowSeconds = $windowSeconds ?? config('rate_limit.window', 60);
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface

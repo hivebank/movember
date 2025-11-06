@@ -12,11 +12,11 @@ class EmailService
 
     public function __construct()
     {
-        $this->smtpHost = $_ENV['SMTP_HOST'] ?? 'localhost';
-        $this->smtpPort = (int)($_ENV['SMTP_PORT'] ?? 25);
-        $this->smtpUser = $_ENV['SMTP_USER'] ?? '';
-        $this->smtpPassword = $_ENV['SMTP_PASSWORD'] ?? '';
-        $this->fromEmail = $_ENV['SMTP_FROM'] ?? 'noreply@formflow.com';
+        $this->smtpHost = config('email.smtp_host', 'localhost');
+        $this->smtpPort = config('email.smtp_port', 25);
+        $this->smtpUser = config('email.smtp_user', '');
+        $this->smtpPassword = config('email.smtp_password', '');
+        $this->fromEmail = config('email.smtp_from', 'noreply@formflow.com');
     }
 
     public function sendFormSubmissionNotification(
@@ -72,7 +72,7 @@ class EmailService
     private function send(string $to, string $subject, string $body): bool
     {
         // For development/testing, just log the email
-        if ($_ENV['APP_ENV'] === 'development') {
+        if (config('app.env', 'production') === 'development') {
             error_log("=== EMAIL ===");
             error_log("To: {$to}");
             error_log("Subject: {$subject}");

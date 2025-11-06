@@ -1,8 +1,8 @@
-# FormFlow - Quick Setup Guide
+# FormFlow - Zero-Setup Guide
 
-## ✅ Everything is Fixed and Ready!
+## ✅ Git Clone and Play!
 
-This is now a **zero-build, plug-and-play PHP application** with modern UI.
+This is a **zero-setup, plug-and-play PHP application** with modern UI. No .env files, no configuration needed!
 
 ---
 
@@ -30,15 +30,12 @@ http://yourdomain.com/setup-check.php
 ```bash
 cd backend
 composer install
-cp .env.example .env
+cd ..
 ```
 
-Edit `.env` and set at minimum:
-```env
-JWT_SECRET=your-random-secret-key-here
-MONGODB_URI=mongodb://localhost:27017
-MONGODB_DATABASE=formflow
-```
+**That's it!** No .env file needed. Works out of the box! 🎉
+
+(Optional: Edit `backend/config/config.php` if you want to customize MongoDB URI, JWT secret, or Stripe settings)
 
 ### Step 3: Setup MongoDB
 
@@ -171,7 +168,7 @@ Visit `http://yourdomain.com/setup-check.php` for an automated diagnosis of your
 **"API call failed"**
 - Check backend is accessible at `yourdomain.com/backend/api/health`
 - Verify MongoDB is running: `sudo systemctl status mongod`
-- Check `.env` file has correct settings
+- Check `backend/config/config.php` if you customized MongoDB settings
 - Check composer dependencies are installed: `cd backend && composer install`
 
 **"CSS not loading"**

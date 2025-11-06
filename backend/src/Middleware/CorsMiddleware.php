@@ -11,7 +11,7 @@ class CorsMiddleware implements MiddlewareInterface
 {
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $allowedOrigins = explode(',', $_ENV['CORS_ALLOWED_ORIGINS'] ?? '*');
+        $allowedOrigins = config('cors.allowed_origins', ['*']);
         $origin = $request->getHeaderLine('Origin');
 
         if ($request->getMethod() === 'OPTIONS') {

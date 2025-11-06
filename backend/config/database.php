@@ -1,9 +1,11 @@
 <?php
 
+$mainConfig = require __DIR__ . '/config.php';
+
 return [
     'mongodb' => [
-        'uri' => $_ENV['MONGODB_URI'] ?? 'mongodb://localhost:27017',
-        'database' => $_ENV['MONGODB_DATABASE'] ?? 'formflow',
+        'uri' => $mainConfig['database']['uri'],
+        'database' => $mainConfig['database']['database'],
         'options' => [
             'connectTimeoutMS' => 5000,
             'serverSelectionTimeoutMS' => 5000,
