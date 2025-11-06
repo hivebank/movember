@@ -26,7 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: dashboard.php');
         exit;
     } else {
-        $error = $result['data']['message'] ?? 'Login failed. Please try again.';
+        // Better error messages for debugging
+        if ($result['code'] === 0) {
+            $error = 'Cannot connect to backend API. Check if backend is running and accessible.';
+        } else {
+            $error = $result['data']['message'] ?? 'Login failed (HTTP ' . $result['code'] . '). Please try again.';
+        }
+        // For debugging (remove in production)
+        // $error .= ' | Debug: ' . json_encode($result);
     }
 }
 
