@@ -15,6 +15,16 @@ git clone https://github.com/hivebank/movember.git
 cd movember
 ```
 
+### Step 1.5: Verify Your Setup (Optional but Recommended)
+
+After completing the setup steps below, visit `http://yourdomain.com/setup-check.php` to automatically verify your installation. This page will check all requirements and guide you through fixing any issues.
+
+```
+http://yourdomain.com/setup-check.php
+```
+
+⚠️ **Delete this file after setup is complete for security!**
+
 ### Step 2: Install Backend Dependencies
 
 ```bash
@@ -142,19 +152,37 @@ After setup:
 
 ## 🐛 Troubleshooting
 
-### "Login not found"
+### Quick Diagnosis Tool
+
+Visit `http://yourdomain.com/setup-check.php` for an automated diagnosis of your setup. This will check:
+- PHP version and extensions
+- Backend API accessibility
+- MongoDB connection
+- Admin user existence
+- Login functionality
+
+### Common Issues
+
+**"Login not found"**
 - Make sure Apache DocumentRoot points to `/path/to/movember`
 - Check `.htaccess` exists in the root folder
+- Ensure mod_rewrite is enabled: `sudo a2enmod rewrite`
 
-### "API call failed"
-- Check backend is accessible at `yourdomain.com/backend/public/api/health`
+**"API call failed"**
+- Check backend is accessible at `yourdomain.com/backend/api/health`
 - Verify MongoDB is running: `sudo systemctl status mongod`
 - Check `.env` file has correct settings
+- Check composer dependencies are installed: `cd backend && composer install`
 
-### "CSS not loading"
+**"CSS not loading"**
 - Check `assets/css/style.css` exists
 - Tailwind loads from CDN (internet required)
 - Check Apache has AllowOverride All
+
+**"Cannot connect to MongoDB"**
+- Install MongoDB extension: `sudo pecl install mongodb`
+- Add to php.ini: `extension=mongodb.so`
+- Restart Apache: `sudo systemctl restart apache2`
 
 ---
 

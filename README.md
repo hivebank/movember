@@ -1,11 +1,19 @@
 # FormFlow - Modern SaaS Form Builder
 
-A complete, production-ready SaaS solution for creating beautiful step-by-step forms similar to Typeform. Built with modern technologies and best practices.
+A complete, production-ready SaaS solution for creating beautiful step-by-step forms similar to Typeform. **Zero build complexity** - just clone and run!
 
 ![FormFlow](https://img.shields.io/badge/version-1.0.0-blue)
-![PHP](https://img.shields.io/badge/PHP-8.2+-purple)
-![Vue.js](https://img.shields.io/badge/Vue.js-3.x-green)
+![PHP](https://img.shields.io/badge/PHP-8.0+-purple)
 ![MongoDB](https://img.shields.io/badge/MongoDB-6.0+-green)
+![Apache](https://img.shields.io/badge/Apache-2.4+-red)
+
+## 🎯 What Makes This Special?
+
+- ✅ **Zero Build Steps** - No npm, no webpack, no build process
+- ✅ **Clone and Go** - Just `git clone`, configure, and it works
+- ✅ **Modern UI** - Tailwind CSS from CDN for beautiful, responsive design
+- ✅ **Simple & Maintainable** - Plain PHP files you can understand and modify
+- ✅ **Production Ready** - Full authentication, subscriptions, and API
 
 ## ✨ Features
 
@@ -35,98 +43,111 @@ A complete, production-ready SaaS solution for creating beautiful step-by-step f
 ## 📋 Tech Stack
 
 ### Backend
-- **PHP 8.2+** with Slim Framework 4
+- **PHP 8.0+** with Slim Framework 4
 - **MongoDB** - NoSQL database
 - **Stripe API** - Payment processing
 - **JWT** - Authentication
 - **Apache 2.4+** - Web server
+- **Composer** - PHP dependency management
 
 ### Frontend
-- **Vue.js 3** - Progressive JavaScript framework
-- **Vite** - Lightning-fast build tool
-- **Pinia** - State management
-- **TailwindCSS** - Utility-first CSS
-- **Axios** - HTTP client
+- **Plain PHP** - No build step required!
+- **Tailwind CSS** - From CDN, no compilation needed
+- **jQuery** - For AJAX calls to backend
+- **Modern CSS** - Custom styles for professional look
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- PHP 8.2+
+- PHP 8.0+ (with curl, json, mbstring, mongodb extensions)
 - MongoDB 6.0+
-- Node.js 18+
 - Composer
-- Apache 2.4+
+- Apache 2.4+ (with mod_rewrite enabled)
+- **NO Node.js required!** 🎉
 
-### Backend Setup
+### Setup (5 minutes!)
 
 ```bash
-# Install dependencies
+# 1. Clone the repo
+git clone https://github.com/hivebank/movember.git
+cd movember
+
+# 2. Install backend dependencies
 cd backend
 composer install
-
-# Configure environment
 cp .env.example .env
-nano .env  # Edit with your settings
+nano .env  # Set your JWT_SECRET and MongoDB settings
 
-# Setup MongoDB
-mongosh < ../setup-mongodb.js
+# 3. Setup MongoDB
+cd ..
+mongosh < setup-mongodb.js
+mongosh formflow < create-admin-user.js
+
+# 4. Point Apache to the movember folder
+# Edit your Apache config to set DocumentRoot to /path/to/movember
+
+# 5. Visit the setup checker
+# http://yourdomain.com/setup-check.php
 ```
 
-### Frontend Setup
+### Quick Verification
 
-```bash
-# Install dependencies
-cd frontend
-npm install
+After setup, visit `http://yourdomain.com/setup-check.php` - this will automatically check:
+- ✅ PHP version and extensions
+- ✅ Backend API accessibility
+- ✅ MongoDB connection
+- ✅ Admin user exists
+- ✅ Login works
 
-# Configure environment
-cp .env.example .env
-nano .env  # Edit with your settings
+### Default Login
+- **Email:** admin@admin.com
+- **Password:** admin
 
-# Run development server
-npm run dev
-```
+🎉 That's it! No build steps, no npm install, no webpack!
 
-### Start Development
-
-```bash
-# Backend (from backend directory)
-php -S localhost:8000 -t public
-
-# Frontend (from frontend directory)
-npm run dev
-```
-
-Visit http://localhost:3000 to see the application!
+See [SETUP.md](SETUP.md) for detailed instructions.
 
 ## 📦 Project Structure
 
 ```
-formflow/
-├── backend/                # PHP Backend
+movember/
+├── index.php               # Landing page
+├── login.php              # Login page
+├── register.php           # Registration page
+├── dashboard.php          # User dashboard
+├── pricing.php            # Pricing plans
+├── logout.php             # Logout handler
+│
+├── includes/              # Shared PHP code
+│   ├── config.php         # Configuration & API helper
+│   ├── header.php         # Header & navigation
+│   └── footer.php         # Footer & scripts
+│
+├── assets/                # Static assets
+│   ├── css/
+│   │   └── style.css      # Custom styles
+│   └── js/
+│       └── app.js         # JavaScript utilities
+│
+├── backend/               # PHP Backend API
 │   ├── config/            # Configuration files
 │   ├── public/            # Public entry point
+│   │   ├── api/           # API endpoints
+│   │   └── index.php      # API router
 │   ├── src/
 │   │   ├── Controllers/   # API controllers
 │   │   ├── Models/        # Data models
 │   │   ├── Middleware/    # Custom middleware
-│   │   ├── Services/      # Business logic services
 │   │   └── Database/      # Database connection
 │   └── composer.json
 │
-├── frontend/              # Vue.js Frontend
-│   ├── src/
-│   │   ├── components/    # Vue components
-│   │   ├── views/         # Page views
-│   │   ├── stores/        # Pinia stores
-│   │   ├── router/        # Vue Router
-│   │   └── services/      # API services
-│   └── package.json
-│
+├── setup-check.php        # Setup verification tool
+├── create-admin-user.js   # Admin user creation script
+├── setup-mongodb.js       # MongoDB setup script
+├── SETUP.md               # Setup instructions
 ├── ARCHITECTURE.md        # System architecture docs
 ├── DEPLOYMENT.md          # Deployment guide
-├── setup-mongodb.js       # MongoDB setup script
-└── apache-config.conf     # Apache configuration
+└── .htaccess              # Apache rewrite rules
 ```
 
 ## 💰 Subscription Plans
@@ -150,16 +171,12 @@ formflow/
 ```env
 MONGODB_URI=mongodb://localhost:27017
 MONGODB_DATABASE=formflow
-JWT_SECRET=your-secret-key
+JWT_SECRET=your-secret-key-change-this
 STRIPE_SECRET_KEY=sk_test_xxx
 STRIPE_PUBLISHABLE_KEY=pk_test_xxx
 ```
 
-**Frontend (.env)**
-```env
-VITE_API_URL=http://localhost:8000/api
-VITE_STRIPE_PUBLISHABLE_KEY=pk_test_xxx
-```
+No frontend configuration needed - everything is configured in `includes/config.php`!
 
 ### Stripe Setup
 
