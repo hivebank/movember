@@ -25,7 +25,7 @@ if ! command -v composer &> /dev/null; then
     exit 1
 fi
 
-composer install --no-dev --optimize-autoloader
+composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-mongodb
 cd ..
 echo -e "${GREEN}✓ Backend dependencies installed${NC}"
 echo ""

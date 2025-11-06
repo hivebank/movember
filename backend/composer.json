@@ -3,10 +3,10 @@
   "description": "FormFlow SaaS Form Builder - Backend API",
   "type": "project",
   "require": {
-    "php": "^8.2",
+    "php": "^8.0",
     "slim/slim": "^4.12",
     "slim/psr7": "^1.6",
-    "mongodb/mongodb": "^1.17",
+    "mongodb/mongodb": "^1.15",
     "firebase/php-jwt": "^6.9",
     "stripe/stripe-php": "^13.0",
     "guzzlehttp/guzzle": "^7.8",
